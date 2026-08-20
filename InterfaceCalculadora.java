@@ -1,10 +1,10 @@
-package projetoCalculadoraInterface.src;
+package projetoCalculadoraInterface;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class InterfaceCalculadora {
-    public void interfaceCalculadora(JButton botoes, JFrame janela, JPanel visor, JLabel digitos) {
+    public void interfaceCalculadora(JPanel botoes, JFrame janela, JPanel visor, JLabel digitos) {
         //personalização do Layout
         botoes.setLayout(new GridLayout(4, 4));
         janela.setLayout(new BorderLayout());
@@ -26,6 +26,5 @@ public class InterfaceCalculadora {
         janela.add(botoes, BorderLayout.CENTER);
         janela.add(visor, BorderLayout.NORTH);
         janela.setVisible(true);
-    }
     }
 }
