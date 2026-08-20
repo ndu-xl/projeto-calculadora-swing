@@ -3,7 +3,7 @@ package projetoCalculadoraInterface.src;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
+
 
 public class calculadoraInterface {
 	//variaveis estáticas para a interação com o botão
@@ -15,9 +15,9 @@ public class calculadoraInterface {
 	static String resultado = "";
 	static String resultadoFinal = "";
 	static String operador = "";
-	public static void main (String args[]) {
-	//atribuição das classes
-	DecimalFormat formatador = new DecimalFormat("#.##");
+	static void main (String args[]) {
+	//atribuição de Objetos
+		InterfaceCalculadora interface = new InterfaceCalculadora();
 	JFrame janela = new JFrame();
 	JPanel visor = new JPanel();
 	JLabel digitos = new JLabel("0");
@@ -38,38 +38,39 @@ public class calculadoraInterface {
 		botao.setFont(new Font(texto, 1, 50));
 		botao.setForeground(Color.decode("#ffffff"));
 		ActionListener digitar = e -> {
-			JButton botao2 = (JButton) e.getSource();
+			JButton botaoClicavel = (JButton) e.getSource();
+			String botaoValor = botaoClicavel.getText();
 			//inserindo valores
 			if (digitos.getText().equals("0")) {
-				digitos.setText(botao2.getText());
+				digitos.setText(botaoValor);
 			} else {
-			digitos.setText(digitos.getText() + botao2.getText());
+			digitos.setText(digitos.getText() + botaoValor);
 			}
 			//apagando valores
-			if (botao2.getText().equals("C")) {
+			if (botaoValor.equals("C")) {
 				digitos.setText("0");
 			}
 
 			//seleção de operadores
-			else if (botao2.getText().equals("+")) {
+			else if (botaoValor.equals("+")) {
 				txt1 = digitos.getText();
 				txt1 = txt1.replaceAll("[+]", "");
 				number1 = Double.parseDouble(txt1);
 				operador = "+";
 				digitos.setText("0");
-			} else if (botao2.getText().equals("-")) {
+			} else if (botaoValor.equals("-")) {
 				txt1 = digitos.getText();
 				txt1 = txt1.replaceAll("[-]", "");
 				number1 = Double.parseDouble(txt1);
 				operador = "-";
 				digitos.setText("0");
-			} else if (botao2.getText().equals("×")) {
+			} else if (botaoValor.equals("×")) {
 				txt1 = digitos.getText();
 				txt1 = txt1.replaceAll("[×]", "");
 				number1 = Double.parseDouble(txt1);
 				operador = "*";
 				digitos.setText("0");
-			} else if (botao2.getText().equals("÷")) {
+			} else if (botaoValor.equals("÷")) {
 				txt1 = digitos.getText();
 				txt1 = txt1.replaceAll("[÷]", "");
 				number1 = Double.parseDouble(txt1);
@@ -78,7 +79,7 @@ public class calculadoraInterface {
 			} 
 			
 			//impressão de resultado
-			else if (botao2.getText().equals("=")) {
+			else if (botaoValor.equals("=")) {
 				txt2 = digitos.getText();
 				txt2 = txt2.replaceAll("[=]", "");
 				number2 = Double.parseDouble(txt2);
@@ -98,33 +99,10 @@ public class calculadoraInterface {
 					default:
 						break;
 				}
-				resultado = String.format("%.2f", result);
+				resultado = String.format("%.2f", result).replace(",", ".");
 				digitos.setText(resultado);
 		}
 		};
 		botao.addActionListener(digitar);
-	}
-
-	//personalização do Layout
-	botoes.setLayout(new GridLayout(4, 4));
-	janela.setLayout(new BorderLayout());
-	visor.setLayout(new GridLayout());
-
-	//personalização dos botões
-	janela.setTitle("Calculadora");
-	janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	janela.setSize(330, 540);
-	janela.getContentPane().setBackground(Color.decode("#cfcfcf"));
-	janela.setLocationRelativeTo(null);
-	digitos.setFont(new Font("0", 1 , 50));
-	visor.setPreferredSize(new Dimension(350,170));
-	visor.setBackground(Color.decode("#FFFFFF"));
-	visor.setBorder(BorderFactory.createLineBorder(Color.decode("#cfcfcf"), 5));
-	
-	//adição dos botões a janela
-	visor.add(digitos);
-	janela.add(botoes, BorderLayout.CENTER);
-	janela.add(visor, BorderLayout.NORTH);
-	janela.setVisible(true);
 	}
 }
